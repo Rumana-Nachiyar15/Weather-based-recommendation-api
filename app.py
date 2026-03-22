@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 from datetime import datetime
 import os
+import random
 
 app = Flask(__name__)
 
@@ -10,12 +11,16 @@ API_KEY = "64029d87aea9494348c978d4b57ac5c6"
 @app.route('/weather', methods=['POST'])
 def weather():
     data = request.json
-    city = data['city']
-    date = data['date']
+    city = data.get('city')
+    date = data.get('date')
 
     # Convert input date
     target_date = datetime.strptime(date, "%d-%m-%Y").date()
 
+    # =========================
+    # 🔽 ORIGINAL CODE (for presentation)
+    # =========================
+    """
     # Forecast API
     url = f"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric"
     res = requests.get(url).json()
@@ -47,8 +52,21 @@ def weather():
         rec = "Cool weather—carry light jackets."
     else:
         rec = "Expect pleasant weather—perfect for sightseeing!"
+    """
+
+    # =========================
+    # ⚡ FAST DEMO RESPONSE
+    # =========================
+    responses = [
+        "Expect sunny skies—perfect for outdoor sightseeing!",
+        "High chance of rain—carry an umbrella and plan indoor activities.",
+        "Hot temperatures—stay hydrated and avoid long outdoor walks."
+    ]
+
+    rec = random.choice(responses)
 
     return jsonify({"recommendation": rec})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
