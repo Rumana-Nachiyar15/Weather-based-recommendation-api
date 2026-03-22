@@ -14,7 +14,7 @@ def weather():
     date = data['date']
 
     # Convert input date
-    target_date = datetime.strptime(date, "%Y-%m-%d").date()
+    target_date = datetime.strptime(date, "%d-%m-%Y").date()
 
     # Forecast API
     url = f"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric"
