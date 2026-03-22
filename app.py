@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-API_KEY = "YOUR_API_KEY"
+API_KEY = "64029d87aea9494348c978d4b57ac5c6"
 
 @app.route('/weather', methods=['POST'])
 def weather():
